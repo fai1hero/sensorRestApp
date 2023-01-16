@@ -2,6 +2,9 @@ package springcourse.SensorRestApp.models;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -15,28 +18,26 @@ public class Measurement implements Serializable {
     private long id;
 
     @Column(name = "temp_value")
-    private double tempValue;
+    @NotNull
+    @Min(-100)
+    @Max(100)
+    private Double tempValue;
 
     @Column(name = "raining")
+    @NotNull
     private boolean raining;
 
     @Column(name = "added_at")
+    @NotNull
     private LocalDateTime addedAt;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "sensor_name", referencedColumnName = "name")
     private Sensor sensor;
 
     public Measurement() {
     }
-
-    public Measurement(int tempValue, boolean raining, LocalDateTime addedAt, Sensor sensor) {
-        this.tempValue = tempValue;
-        this.raining = raining;
-        this.addedAt = addedAt;
-        this.sensor = sensor;
-    }
-
     public long getId() {
         return id;
     }
@@ -45,11 +46,11 @@ public class Measurement implements Serializable {
         this.id = id;
     }
 
-    public double getTempValue() {
+    public Double getTempValue() {
         return tempValue;
     }
 
-    public void setTempValue(int tempValue) {
+    public void setTempValue(Double tempValue) {
         this.tempValue = tempValue;
     }
 

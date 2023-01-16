@@ -2,12 +2,21 @@ package springcourse.SensorRestApp.dto;
 
 import springcourse.SensorRestApp.models.Sensor;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
 public class MeasurementDTO {
 
+    @NotNull
     private SensorDTO sensor;
 
-    private double tempValue;
+    @NotNull
+    @Min(-100)
+    @Max(100)
+    private Double tempValue;
 
+    @NotNull
     private boolean raining;
 
     public SensorDTO getSensor() {
@@ -18,11 +27,11 @@ public class MeasurementDTO {
         this.sensor = sensor;
     }
 
-    public double getTempValue() {
+    public Double getTempValue() {
         return tempValue;
     }
 
-    public void setTempValue(int tempValue) {
+    public void setTempValue(Double tempValue) {
         this.tempValue = tempValue;
     }
 

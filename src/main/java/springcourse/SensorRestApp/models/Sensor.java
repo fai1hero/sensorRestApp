@@ -1,6 +1,8 @@
 package springcourse.SensorRestApp.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 
@@ -15,6 +17,8 @@ public class Sensor implements Serializable {
 
 
     @Column(name = "name")
+    @NotEmpty(message = "Название не должно быть пустым")
+    @Size(min = 3, max = 40, message = "Название сенсора должно содержать от 3 до 40 символов")
     private String name;
 
     public long getId() {

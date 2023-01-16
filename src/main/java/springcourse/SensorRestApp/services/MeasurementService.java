@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import springcourse.SensorRestApp.dto.MeasurementDTO;
 import springcourse.SensorRestApp.models.Measurement;
 import springcourse.SensorRestApp.repositories.MeasurementRepository;
+import springcourse.SensorRestApp.utill.SensorNotRegisteredException;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
@@ -48,7 +49,9 @@ public class MeasurementService {
     public void saveMeasurement(MeasurementDTO measurementDTO) {
         Measurement measurementToSave = convertToMeasurement(measurementDTO);
         measurementToSave.setAddedAt(LocalDateTime.now());
-        measurementToSave.setSensor(sensorService.findByName(measurementToSave.getSensor().getName()).get());
+        measurementToSave.setSensor(sensorService
+                .findByName(measurementToSave.getSensor().getName()).orElseThrow(SensorNotRegisteredException::new));
+
         measurementRepository.save(measurementToSave);
     }
 

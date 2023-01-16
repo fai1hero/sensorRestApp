@@ -12,4 +12,5 @@ create table Measurement
     sensor_name varchar(100) REFERENCES sensor(name) ,
     temp_value float4 check ( temp_value > -100) check ( temp_value < 100 ) NOT NULL ,
     raining boolean NOT NULL,
-    added_at timestamp not null );
+    added_at timestamp not null
+     );
